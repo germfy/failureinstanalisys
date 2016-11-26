@@ -1,0 +1,13 @@
+---
+declared-services:
+  alchemy-service:
+    label: alchemy_api
+    plan: free
+applications:
+- name: alchemy-language-demo
+  command: npm start
+  memory: 512MB
+  services:
+  - alchemy-service
+  env:
+    NPM_CONFIG_PRODUCTION: false
