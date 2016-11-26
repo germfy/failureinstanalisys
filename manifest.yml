@@ -1,13 +1,10 @@
 ---
-declared-services:
-  alchemy-service:
-    label: alchemy_api
-    plan: free
 applications:
-- name: alchemy-language-demo
+- name: analisisinstitutodelfracaso
   command: npm start
   memory: 512MB
   services:
-  - alchemy-service
+  - AlchemyAPI-7v
+  - gfycloudantjs-cloudantNoSQLDB
   env:
     NPM_CONFIG_PRODUCTION: false
