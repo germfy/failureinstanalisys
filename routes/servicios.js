@@ -29,10 +29,10 @@ router.get('/resultados', function(req, res, next){
 });
 
 function getRecords(callback){
-  var resultados = {resultados :[]};
+  var resultados = {textos :[]};
   db.list({include_docs : true}, function(err, datos){
     datos.rows.forEach(function(row){
-        resultados.equipos.push({ estado : row.doc.estado,
+        resultados.textos.push({ estado : row.doc.estado,
                                   respuesta : row.doc.respuesta});
     });
     callback(resultados);
