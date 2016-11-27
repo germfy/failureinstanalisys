@@ -15,7 +15,8 @@
     "morgan": "^1.7.0",
     "request": "^2.72.0",
     "watson-developer-cloud": "^2.4.3",
-    "cloudant": "*"
+    "cloudant": "*",
+    "cfenv": "*"
   },
   "engines": {
     "node": "*"
