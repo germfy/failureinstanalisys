@@ -3,15 +3,7 @@
   "version": "0.2.5",
   "description": "A sample nodejs app for Bluemix that showcase the AlchemyLanguage service",
   "scripts": {
-    "start": "node server.js",
-    "build": "gulp compile",
-    "postinstall": "npm run build",
-    "dev": "gulp",
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha",
-    "lint": "eslint .",
-    "autofix": "eslint --fix .",
-    "codecov": "npm run test && (codecov || true)",
-    "validate": "npm ls"
+    "start": "node server.js"
   },
   "dependencies": {
     "body-parser": "^1.13.2",
