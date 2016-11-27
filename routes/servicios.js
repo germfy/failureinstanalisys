@@ -27,6 +27,6 @@ router.get('/', function(req, res, next){
       body.rows.forEach(function(doc){
         console.log(doc);
       });
-    });
+    };
   });
 });
