@@ -17,4 +17,16 @@ router.get('/', function(req, res, next){
   var cldntPassword = cloudantService.credentials.password;
   var clndtHost = cloudantService.credentials.host;
   var clndtPost = cloudantService.credentials.port;
+  var cldntUrl = cloudantService.credentials.url;
+
+  var cloudant = Cloudant(cldntUrl);
+  var db = cloudant.db.use("failureinstitute");
+
+  db.list(function(err,body){
+    if(!err{
+      body.rows.forEach(function(doc){
+        console.log(doc);
+      });
+    });
+  });
 });
