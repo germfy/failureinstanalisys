@@ -3,7 +3,8 @@
   "version": "0.2.5",
   "description": "A sample nodejs app for Bluemix that showcase the AlchemyLanguage service",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "gulp compile"
   },
   "dependencies": {
     "body-parser": "^1.13.2",
