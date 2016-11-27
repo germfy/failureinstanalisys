@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+var routes = require('./routes/servicios.js')
 var express = require('express');
 var app = express();
-var watson = require('watson-developer-cloud');
+//var watson = require('watson-developer-cloud');
 
 // Bootstrap application settings
 require('./config/express')(app);
 
 // If no API Key is provided here, the watson-developer-cloud@2.x.x library will check for an ALCHEMY_LANGUAGE_API_KEY environment property and then fall back to the VCAP_SERVICES property provided by Bluemix.
-var alchemyLanguage = new watson.AlchemyLanguageV1({
+//var alchemyLanguage = new watson.AlchemyLanguageV1({
 // api_key: '<api-key>'
-});
+//});
 app.use(express.static(__dirname + '/public'));
-
+/*
 app.post('/api/:method', function(req, res, next) {
   var method = req.params.method;
   if (typeof alchemyLanguage[method] === 'function') {
@@ -40,12 +40,17 @@ app.post('/api/:method', function(req, res, next) {
     next({code: 404, error: 'Unknown method: ' + method });
   }
 });
+*/
 
-app.get('/', function(req, res) {
-  res.render('index');
+app.use(function(err, req, res, next) {
+	var error = {
+		      code: err.code || 500,
+		      error: err.error || err.message
+		    };
+	console.log('error:', error);
+	res.status(error.code).json(error);
 });
 
-// error-handler settings
-require('./config/error-handler')(app);
+app.get('/', routes);
 
 module.exports = app;
