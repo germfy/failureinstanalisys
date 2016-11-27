@@ -30,7 +30,7 @@ router.get('/resultados', function(req, res, next){
 
 function getRecords(callback){
   var resultados = {textos :[]};
-  db.list({include_docs : true}, function(err, datos){
+  db.list({sort: "estado",include_docs : true}, function(err, datos){
     datos.rows.forEach(function(row){
         resultados.textos.push({ estado : row.doc.estado,
                                   respuesta : row.doc.respuesta});
