@@ -3,30 +3,38 @@ var express = require('express');
 var router = express.Router();
 var cfenv = require('cfenv');
 var Cloudant = require('cloudant');
+var appEnv = cfenv.getAppEnv();
+var alchmyService = appEnv.getService("AlchemyAPI-7v");
+
+var alchmyUrl = appService.credentials.url;
+var alchmyApiKey = appService.credentials.apikey;
+
+var cldntService = appEnv.getService("gfycloudantjs-cloudantNoSQLDB");
+
+var cldntUsername = cloudantService.credentials.username;
+var cldntPassword = cloudantService.credentials.password;
+var clndtHost = cloudantService.credentials.host;
+var clndtPost = cloudantService.credentials.port;
+var cldntUrl = cloudantService.credentials.url;
+
+var cloudant = Cloudant(cldntUrl);
+var db = cloudant.db.use("failureinstitute");
 
 router.get('/', function(req, res, next){
-  var appEnv = cfenv.getAppEnv();
-	var alchmyService = appEnv.getService("AlchemyAPI-7v");
-
-	var alchmyUrl = appService.credentials.url;
-  var alchmyApiKey = appService.credentials.apikey;
-
-  var cldntService = appEnv.getService("gfycloudantjs-cloudantNoSQLDB");
-
-  var cldntUsername = cloudantService.credentials.username;
-  var cldntPassword = cloudantService.credentials.password;
-  var clndtHost = cloudantService.credentials.host;
-  var clndtPost = cloudantService.credentials.port;
-  var cldntUrl = cloudantService.credentials.url;
-
-  var cloudant = Cloudant(cldntUrl);
-  var db = cloudant.db.use("failureinstitute");
-
-  db.list(function(err,body){
-    if(!err){
-      body.rows.forEach(function(doc){
-        console.log(doc);
-      });
-    };
+  var StringJson = {textos : []};
+  getRecords(function(StringJson){
+    console.log("Resultados enviados");
+    res.json(StringJson.textos);
   });
 });
+
+function getRecords(callback){
+  var resultados = {resultados :[]};
+  db.list({include_docs : true}, function(err, datos){
+    datos.rows.forEach(function(row){
+        resultados.equipos.push({ estado : row.doc.estado,
+                                  respuesta : row.doc.respuesta});
+    });
+    callback(resultados);
+  });
+};
