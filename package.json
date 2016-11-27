@@ -2,29 +2,6 @@
   "name": "alchemy-language-demo",
   "version": "0.2.5",
   "description": "A sample nodejs app for Bluemix that showcase the AlchemyLanguage service",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/watson-developer-cloud/alchemylanguage-nodejs.git"
-  },
-  "author": "IBM Corp.",
-  "contributors": [
-    {
-      "name": "Alex Meyer",
-      "email": "alexmeyer@us.ibm.com"
-    },
-    {
-      "name": "Eva Xiaohui Luo",
-      "email": "evaluo_xhl@us.ibm.com"
-    },
-    {
-      "name": "German Attanasio Ruiz",
-      "email": "germanatt@us.ibm.com"
-    }
-  ],
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/watson-developer-cloud/alchemylanguage-nodejs/issues"
-  },
   "scripts": {
     "start": "node server.js",
     "build": "gulp compile",
