@@ -48,6 +48,17 @@ app.use(function(err, req, res, next) {
 	res.status(error.code).json(error);
 });
 
-app.get('/', routes);
+app.use('/', routes);
+
+app.use(function(req, res, next) {
+  console.log(req);
+  var err = new Error('No encontrado');
+  err.status = 404;
+  next(err);
+});
+
+var server = app.listen(appEnv.port, appEnv.bind, function(){
+  console.log('Express server listening on port ' + server.address().port);
+});
 
 module.exports = app;
