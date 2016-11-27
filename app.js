@@ -15,6 +15,9 @@
  */
 var routes = require('./routes/servicios.js')
 var express = require('express');
+var cfenv = require('cfenv');
+
+var appEnv = cfenv.getAppEnv();
 var app = express();
 //var watson = require('watson-developer-cloud');
 
