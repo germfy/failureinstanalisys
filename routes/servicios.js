@@ -6,8 +6,8 @@ var Cloudant = require('cloudant');
 var appEnv = cfenv.getAppEnv();
 var alchmyService = appEnv.getService("AlchemyAPI-7v");
 
-var alchmyUrl = appService.credentials.url;
-var alchmyApiKey = appService.credentials.apikey;
+var alchmyUrl = alchmyService.credentials.url;
+var alchmyApiKey = alchmyService.credentials.apikey;
 
 var cldntService = appEnv.getService("gfycloudantjs-cloudantNoSQLDB");
 
