@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use strict';
-
 var express = require('express');
 var app = express();
 var watson = require('watson-developer-cloud');
@@ -27,6 +25,7 @@ require('./config/express')(app);
 var alchemyLanguage = new watson.AlchemyLanguageV1({
 // api_key: '<api-key>'
 });
+app.use(express.static(__dirname + '/public'));
 
 app.post('/api/:method', function(req, res, next) {
   var method = req.params.method;

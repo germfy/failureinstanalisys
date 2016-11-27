@@ -1,6 +1,6 @@
 node_modules
 coverage
-.DS_Store
+**/.DS_Store
 npm-debug.log
 public/fonts/icon-fonts/*
 !public/fonts/icon-fonts/README.md
