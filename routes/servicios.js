@@ -11,11 +11,11 @@ var alchmyApiKey = alchmyService.credentials.apikey;
 
 var cldntService = appEnv.getService("gfycloudantjs-cloudantNoSQLDB");
 
-var cldntUsername = cloudantService.credentials.username;
-var cldntPassword = cloudantService.credentials.password;
-var clndtHost = cloudantService.credentials.host;
-var clndtPost = cloudantService.credentials.port;
-var cldntUrl = cloudantService.credentials.url;
+var cldntUsername = cldntService.credentials.username;
+var cldntPassword = cldntService.credentials.password;
+var clndtHost = cldntService.credentials.host;
+var clndtPost = cldntService.credentials.port;
+var cldntUrl = cldntService.credentials.url;
 
 var cloudant = Cloudant(cldntUrl);
 var db = cloudant.db.use("failureinstitute");
