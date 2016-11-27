@@ -23,7 +23,7 @@ router.get('/', function(req, res, next){
   var db = cloudant.db.use("failureinstitute");
 
   db.list(function(err,body){
-    if(!err{
+    if(!err){
       body.rows.forEach(function(doc){
         console.log(doc);
       });
