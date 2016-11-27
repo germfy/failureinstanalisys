@@ -20,7 +20,7 @@ var cldntUrl = cldntService.credentials.url;
 var cloudant = Cloudant(cldntUrl);
 var db = cloudant.db.use("failureinstitute");
 
-router.get('/', function(req, res, next){
+router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   getRecords(function(StringJson){
     console.log("Resultados enviados");
