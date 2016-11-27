@@ -38,3 +38,5 @@ function getRecords(callback){
     callback(resultados);
   });
 };
+
+module.exports = router;
