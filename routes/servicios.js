@@ -22,7 +22,7 @@ var db = cloudant.db.use("failureinstitute");
 
 router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
-  var stringAnalisis = {analisis : []};
+  var stringAnalisis = {};
   var RespuestaJson = {};
   getRecords(function(StringJson){
     console.log("Resultados enviados");
@@ -30,7 +30,7 @@ router.get('/resultados', function(req, res, next){
     StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
         //console.log(RespuestaJson);
-        stringAnalisis.analisis.push({RespuestaJson});
+        stringAnalisis += RespuestaJson;
         console.log(stringAnalisis);
       });
     });
@@ -70,7 +70,7 @@ function analizartexto(texto, callback){
 
 function getRecords(callback){
   var resultados = { textos: [] };
-  db.list({sort: "estado", include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
+  db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
     var textocompleto = "";
     datos.rows.forEach(function(row){
         //textocompleto += row.doc.respuesta;
