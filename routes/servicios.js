@@ -31,6 +31,7 @@ router.get('/resultados', function(req, res, next){
       analizartexto(rows.respuesta, function(RespuestaJson){
         //console.log(RespuestaJson);
         stringAnalisis.analisis.push({RespuestaJson});
+        console.log(stringAnalisis);
       });
     });
     //console.log(stringAnalisis);
