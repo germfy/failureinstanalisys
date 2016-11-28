@@ -38,6 +38,7 @@ router.get('/resultados', function(req, res, next){
       console.log(RespuestaJson);
       stringAnalisis.analisis.push(RespuestaJson);
     });
+    console.log(stringAnalisis);
     res.json(stringAnalisis.analisis);
   });
 });
