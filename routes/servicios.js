@@ -24,7 +24,7 @@ router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   getRecords(function(StringJson){
     console.log("Resultados enviados");
-    res.json(StringJson.textos);
+    res.json(StringJson);
   });
 });
 
