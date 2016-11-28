@@ -45,7 +45,7 @@ function analizartexto(texto, callback){
     if(!err){
       resultados = response;
       console.log(response);
-    else {
+    }else {
       console.log(err);
     }
     };
