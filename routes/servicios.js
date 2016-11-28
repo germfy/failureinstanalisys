@@ -27,12 +27,17 @@ router.get('/resultados', function(req, res, next){
   getRecords(function(StringJson){
     console.log("Resultados enviados");
     //res.json(StringJson);
-    StringJson.textos.forEach(function(rows){
+    /*StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
         console.log(RespuestaJson);
         stringAnalisis.analisis.push(RespuestaJson);
       });
-    });
+    });*/
+    console.log(StringJson.textos[0].respuesta);
+    analizartexto(StringJson.textos[0].respuesta, function(RespuestaJson){
+      console.log(RespuestaJson);
+      stringAnalisis.analisis.push(RespuestaJson.entities);
+    })
     res.json(stringAnalisis.analisis);
   });
 });
