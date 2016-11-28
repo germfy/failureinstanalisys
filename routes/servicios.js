@@ -37,7 +37,7 @@ function getRecords(callback){
         //resultados.textos.push({ estado : row.doc.estado,
         //                          respuesta : row.doc.respuesta});
     });
-    resultados = {"texto": textocompleto};
+    resultados = JSON.parse('{"texto": ' + textocompleto + '}');
     callback(resultados);
   });
 };
