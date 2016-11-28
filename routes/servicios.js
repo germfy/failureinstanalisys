@@ -30,7 +30,7 @@ router.get('/resultados', function(req, res, next){
     StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
         console.log(RespuestaJson);
-        stringAnalisis.analisis.push(resultado : RespuestaJson);
+        stringAnalisis.analisis.push({resultado : RespuestaJson});
       });
     });
     console.log(RespuestaJson);
