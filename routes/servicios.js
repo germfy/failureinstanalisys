@@ -23,15 +23,16 @@ var db = cloudant.db.use("failureinstitute");
 router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var stringAnalisis = {};
-  var RespuestaJson = {};
+  var RespuestaJson = {analisis : []};
   getRecords(function(StringJson){
     console.log("Resultados enviados");
     //res.json(StringJson);
     StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
         //console.log(RespuestaJson);
-        stringAnalisis += RespuestaJson;
-        console.log("Dentro de for each " + stringAnalisis);
+        //stringAnalisis += RespuestaJson;
+        stringAnalisis.analisis.push(RespuestaJson.docSentiment);
+        console.log("Dentro de for each " + stringAnalisis.analisis);
       });
     });
     console.log("Dentro de getRecord" + stringAnalisis);
