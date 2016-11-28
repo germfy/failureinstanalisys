@@ -31,19 +31,19 @@ router.get('/resultados', function(req, res, next){
       analizartexto(rows.respuesta, function(RespuestaJson){
         //console.log(RespuestaJson);
         stringAnalisis += RespuestaJson;
-        console.log(stringAnalisis.analisis);
+        console.log("Dentro de for each " + stringAnalisis);
       });
     });
-    console.log(stringAnalisis.analisis);
+    console.log("Dentro de getRecord" + stringAnalisis);
 
     /*console.log(StringJson.texto);
     analizartexto(StringJson.texto, function(RespuestaJson){
       console.log(RespuestaJson);
       res.json(RespuestaJson);
     });*/
-
+    res.json(stringAnalisis);
   });
-  res.json(stringAnalisis);
+
 });
 
 function analizartexto(texto, callback){
