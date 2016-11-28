@@ -44,6 +44,10 @@ function analizartexto(texto, callback){
   alchemy_language.concepts(parameters, function(err, response){
     if(!err){
       resultados = response;
+      console.log(response);
+    else {
+      console.log(err);
+    }
     };
   });
   callback(resultados);
