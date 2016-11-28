@@ -38,10 +38,12 @@ function analizartexto(texto, callback){
   });
   var parameters = {
     text : texto,
-    knowledgeGraph : 1,
-    linkedData : 0
+    max_items : 150,
+    linked_data : 0,
+    emotion : 1,
+    sentiment : 1
   };
-  alchemy_language.concepts(parameters, function(err, response){
+  alchemy_language.entities(parameters, function(err, response){
     if(!err){
       resultados = response;
       console.log(response);
