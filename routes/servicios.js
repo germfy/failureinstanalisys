@@ -43,7 +43,7 @@ function analizartexto(texto, callback){
   }
   alchemy_language.concepts(parameters, function(err, response){
     if(!err){
-      resutados = response;
+      resultados = response;
     };
   });
   callback(resultados);
