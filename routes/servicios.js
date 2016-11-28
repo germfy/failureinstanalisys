@@ -29,9 +29,10 @@ router.get('/resultados', function(req, res, next){
     //res.json(StringJson);
     StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
+        console.log(RespuestaJson);
         stringAnalisis.analisis.push(RespuestaJson);
       });
-    })
+    });
     res.json(stringAnalisis.analisis);
   });
 });
@@ -60,12 +61,11 @@ function analizartexto(texto, callback){
 
 function getRecords(callback){
   var resultados = { textos: [] };
-  db.list({sort: "estado",include_docs : true}, function(err, datos){
+  db.list({sort: "estado", include_docs : true, estado: "Aguscalientes"}, function(err, datos){
     var textocompleto = "";
     datos.rows.forEach(function(row){
         //textocompleto += row.doc.respuesta;
-        resultados.textos.push({ estado : row.doc.estado,
-                                  respuesta : row.doc.respuesta});
+        resultados.textos.push({respuesta : row.doc.respuesta});
     });
     //resultados = {"texto": textocompleto};
     callback(resultados);
