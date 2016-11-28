@@ -32,6 +32,7 @@ router.get('/resultados', function(req, res, next){
   });
 });
 function analizartexto(texto, callback){
+  var resultados = {};
   var alchemy_language = watson.alchemy_language({
     api_key : alchmyApiKey
   })
@@ -42,9 +43,10 @@ function analizartexto(texto, callback){
   }
   alchemy_language.concepts(parameters, function(err, reponse){
     if(!err){
-      callback(response);
+      resutados = response;
     };
   });
+  callback(resultados);
 };
 function getRecords(callback){
   var resultados = {};
