@@ -24,10 +24,10 @@ router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var stringAnalisis = {analisis : []};
   var RespuestaJson = {};
-  getRecords(function(StringJson){
+  getRecords(function(StringJson, stringAnalisis, callback){
     console.log("Resultados enviados");
     //res.json(StringJson);
-    StringJson.textos.forEach(function(rows, stringAnalisis){
+    StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
         //console.log(RespuestaJson);
         //stringAnalisis += RespuestaJson;
@@ -35,6 +35,7 @@ router.get('/resultados', function(req, res, next){
         console.log("Dentro de for each " + stringAnalisis.analisis);
       });
     });
+    callback(stringAnalisis);
     console.log("Dentro de getRecord" + stringAnalisis);
 
     /*console.log(StringJson.texto);
@@ -42,9 +43,9 @@ router.get('/resultados', function(req, res, next){
       console.log(RespuestaJson);
       res.json(RespuestaJson);
     });*/
-    res.json(stringAnalisis);
-  });
 
+  });
+  res.json(stringAnalisis);
 });
 
 function analizartexto(texto, callback){
