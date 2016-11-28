@@ -29,12 +29,12 @@ router.get('/resultados', function(req, res, next){
     //res.json(StringJson);
     StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
-        console.log(RespuestaJson);
+        //console.log(RespuestaJson);
         stringAnalisis.analisis.push({resultado : RespuestaJson});
       });
     });
     //console.log(stringAnalisis);
-    res.json(stringAnalisis.analisis);
+
     /*console.log(StringJson.texto);
     analizartexto(StringJson.texto, function(RespuestaJson){
       console.log(RespuestaJson);
@@ -42,6 +42,7 @@ router.get('/resultados', function(req, res, next){
     });*/
 
   });
+  res.json(stringAnalisis);
 });
 
 function analizartexto(texto, callback){
