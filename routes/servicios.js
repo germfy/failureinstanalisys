@@ -23,21 +23,22 @@ var db = cloudant.db.use("failureinstitute");
 router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var stringAnalisis = {analisis : []}
-  var RespuestaJson = {};
+  var RespuestaJson = {resultado : []};
   getRecords(function(StringJson){
     console.log("Resultados enviados");
     //res.json(StringJson);
-    /*StringJson.textos.forEach(function(rows){
+    StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
         console.log(RespuestaJson);
-        stringAnalisis.analisis.push(RespuestaJson);
+        stringAnalisis.analisis.push(resultado : RespuestaJson);
       });
-    });*/
-    console.log(StringJson.texto);
+    });
+    console.log(RespuestaJson);
+    /*console.log(StringJson.texto);
     analizartexto(StringJson.texto, function(RespuestaJson){
       console.log(RespuestaJson);
       res.json(RespuestaJson);
-    });
+    });*/
 
   });
 });
@@ -69,8 +70,8 @@ function getRecords(callback){
   db.list({sort: "estado", include_docs : true, estado: "Aguscalientes"}, function(err, datos){
     var textocompleto = "";
     datos.rows.forEach(function(row){
-        textocompleto += row.doc.respuesta;
-        //resultados.textos.push({respuesta : row.doc.respuesta});
+        //textocompleto += row.doc.respuesta;
+        resultados.textos.push({respuesta : row.doc.respuesta});
     });
     resultados = {"texto": textocompleto};
     callback(resultados);
