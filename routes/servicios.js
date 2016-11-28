@@ -36,7 +36,7 @@ router.get('/resultados', function(req, res, next){
     console.log(StringJson.textos[0].respuesta);
     analizartexto(StringJson.textos[0].respuesta, function(RespuestaJson){
       console.log(RespuestaJson);
-      stringAnalisis.analisis.push(RespuestaJson.entities);
+      stringAnalisis.analisis.push(RespuestaJson.docSentiment);
     })
     res.json(stringAnalisis.analisis);
   });
@@ -53,7 +53,7 @@ function analizartexto(texto, callback){
     emotion : 1,
     sentiment : 1
   };
-  alchemy_language.entities(parameters, function(err, response){
+  alchemy_language.sentiment(parameters, function(err, response){
     if(!err){
       resultados = response;
       //console.log(response);
