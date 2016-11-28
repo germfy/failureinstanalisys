@@ -73,7 +73,7 @@ function getRecords(callback){
         //textocompleto += row.doc.respuesta;
         resultados.textos.push({respuesta : row.doc.respuesta});
     });
-    resultados = {"texto": textocompleto};
+    //resultados = {"texto": textocompleto};
     callback(resultados);
   });
 };
