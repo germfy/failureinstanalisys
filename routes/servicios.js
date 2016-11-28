@@ -27,7 +27,7 @@ router.get('/resultados', function(req, res, next){
   getRecords(function(StringJson){
     console.log("Resultados enviados");
     //res.json(StringJson);
-    StringJson.textos.forEach(function(rows){
+    StringJson.textos.forEach(function(rows, stringAnalisis){
       analizartexto(rows.respuesta, function(RespuestaJson){
         //console.log(RespuestaJson);
         //stringAnalisis += RespuestaJson;
