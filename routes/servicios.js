@@ -31,10 +31,10 @@ router.get('/resultados', function(req, res, next){
       analizartexto(rows.respuesta, function(RespuestaJson){
         //console.log(RespuestaJson);
         stringAnalisis += RespuestaJson;
-        console.log(stringAnalisis);
+        console.log(stringAnalisis.analisis);
       });
     });
-    //console.log(stringAnalisis);
+    console.log(stringAnalisis.analisis);
 
     /*console.log(StringJson.texto);
     analizartexto(StringJson.texto, function(RespuestaJson){
