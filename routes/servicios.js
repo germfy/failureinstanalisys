@@ -49,7 +49,8 @@ router.get('/resultados', function(req, res, next){
 function analizartexto(texto, callback){
   var resultados = {};
   var alchemy_language = watson.alchemy_language({
-    api_key : alchmyApiKey
+    //api_key : alchmyApiKey
+    api_key : "05685348fec9c4ff8cc85a35303499ec178ad0ae"
   });
   var parameters = {
     text : texto,
