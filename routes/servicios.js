@@ -41,7 +41,7 @@ function analizartexto(texto, callback){
     knowledgeGraph : 1,
     linkedData : 0
   }
-  alchemy_language.concepts(parameters, function(err, reponse){
+  alchemy_language.concepts(parameters, function(err, response){
     if(!err){
       resutados = response;
     };
