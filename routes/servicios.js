@@ -24,14 +24,31 @@ router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   getRecords(function(StringJson){
     console.log("Resultados enviados");
-    res.json(StringJson);
+    //res.json(StringJson);
+    analizartexto(StringJson.texto, function(RespuestaJson){
+      res.json(RespuestaJson);
+    });
   });
 });
-
+function analizartexto(texto, callback){
+  var alchemy_language = watson.alchemy_language({
+    api_key : alchmyApiKey
+  })
+  var parameters = {
+    text : texto,
+    knowledgeGraph : 1,
+    linkedData : 0
+  }
+  alchemy_language.concepts(parameters, function(err, reponse){
+    if(!err){
+      callback(response);
+    };
+  });
+};
 function getRecords(callback){
   var resultados = {};
   db.list({sort: "estado",include_docs : true}, function(err, datos){
-    var textocompleto;
+    var textocompleto = "";
     datos.rows.forEach(function(row){
         textocompleto += row.doc.respuesta;
         //resultados.textos.push({ estado : row.doc.estado,
