@@ -27,21 +27,22 @@ router.get('/resultados', function(req, res, next){
   getRecords(function(StringJson){
     console.log("Resultados enviados");
     //res.json(StringJson);
-    /*StringJson.textos.forEach(function(rows){
+    StringJson.textos.forEach(function(rows){
       analizartexto(rows.respuesta, function(RespuestaJson){
         console.log(RespuestaJson);
         stringAnalisis.analisis.push(RespuestaJson);
       });
-    });*/
-    console.log(StringJson.textos[0].respuesta);
+    });
+    /*console.log(StringJson.textos[0].respuesta);
     analizartexto(StringJson.textos[0].respuesta, function(RespuestaJson){
       console.log(RespuestaJson);
       stringAnalisis.analisis.push(RespuestaJson);
-    });
+    });*/
     console.log(stringAnalisis);
     res.json(stringAnalisis.analisis);
   });
 });
+
 function analizartexto(texto, callback){
   var resultados = {};
   var alchemy_language = watson.alchemy_language({
@@ -57,7 +58,7 @@ function analizartexto(texto, callback){
   alchemy_language.sentiment(parameters, function(err, response){
     if(!err){
       callback(response.docSentiment);
-      //console.log(response);
+      console.log(response);
     } else {
       console.log(err);
     };
@@ -69,10 +70,10 @@ function getRecords(callback){
   db.list({sort: "estado", include_docs : true, estado: "Aguscalientes"}, function(err, datos){
     var textocompleto = "";
     datos.rows.forEach(function(row){
-        //textocompleto += row.doc.respuesta;
-        resultados.textos.push({respuesta : row.doc.respuesta});
+        textocompleto += row.doc.respuesta;
+        //resultados.textos.push({respuesta : row.doc.respuesta});
     });
-    //resultados = {"texto": textocompleto};
+    resultados = {"texto": textocompleto};
     callback(resultados);
   });
 };
