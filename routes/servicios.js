@@ -36,8 +36,8 @@ router.get('/resultados', function(req, res, next){
     console.log(StringJson.textos[0].respuesta);
     analizartexto(StringJson.textos[0].respuesta, function(RespuestaJson){
       console.log(RespuestaJson);
-      stringAnalisis.analisis.push(RespuestaJson.docSentiment);
-    })
+      stringAnalisis.analisis.push(RespuestaJson);
+    });
     res.json(stringAnalisis.analisis);
   });
 });
@@ -55,12 +55,11 @@ function analizartexto(texto, callback){
   };
   alchemy_language.sentiment(parameters, function(err, response){
     if(!err){
-      resultados = response;
+      callback(response.docSentiment);
       //console.log(response);
     } else {
       console.log(err);
     };
-  callback(resultados);
   });
 };
 
