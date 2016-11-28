@@ -32,7 +32,7 @@ router.get('/resultados', function(req, res, next){
         stringAnalisis.analisis.push(RespuestaJson);
       });
     })
-    res.send(stringAnalisis.analisis);
+    res.json(stringAnalisis.analisis);
   });
 });
 function analizartexto(texto, callback){
@@ -50,7 +50,7 @@ function analizartexto(texto, callback){
   alchemy_language.entities(parameters, function(err, response){
     if(!err){
       resultados = response;
-      console.log(response);
+      //console.log(response);
     } else {
       console.log(err);
     };
