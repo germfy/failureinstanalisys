@@ -35,23 +35,23 @@ function analizartexto(texto, callback){
   var resultados = {};
   var alchemy_language = watson.alchemy_language({
     api_key : alchmyApiKey
-  })
+  });
   var parameters = {
     text : texto,
     knowledgeGraph : 1,
     linkedData : 0
-  }
+  };
   alchemy_language.concepts(parameters, function(err, response){
     if(!err){
       resultados = response;
       console.log(response);
-    }else {
+    } else {
       console.log(err);
-    }
     };
-  });
   callback(resultados);
+  });
 };
+
 function getRecords(callback){
   var resultados = {};
   db.list({sort: "estado",include_docs : true}, function(err, datos){
