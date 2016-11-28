@@ -22,13 +22,17 @@ var db = cloudant.db.use("failureinstitute");
 
 router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
+  var stringAnalisis = {analisis : []}
   var RespuestaJson = {};
   getRecords(function(StringJson){
     console.log("Resultados enviados");
     //res.json(StringJson);
-    analizartexto(StringJson.texto, function(RespuestaJson){
-      res.json(RespuestaJson);
-    });
+    StringJson.textos.forEach(function(rows){
+      analizartexto(rows.respuesta, function(RespuestaJson){
+        stringAnalisis.analisis.push(RespuestaJson);
+      });
+    })
+    res.send(stringAnalisis.analisis);
   });
 });
 function analizartexto(texto, callback){
@@ -55,15 +59,15 @@ function analizartexto(texto, callback){
 };
 
 function getRecords(callback){
-  var resultados = {};
+  var resultados = { textos: [] };
   db.list({sort: "estado",include_docs : true}, function(err, datos){
     var textocompleto = "";
     datos.rows.forEach(function(row){
-        textocompleto += row.doc.respuesta;
-        //resultados.textos.push({ estado : row.doc.estado,
-        //                          respuesta : row.doc.respuesta});
+        //textocompleto += row.doc.respuesta;
+        resultados.textos.push({ estado : row.doc.estado,
+                                  respuesta : row.doc.respuesta});
     });
-    resultados = {"texto": textocompleto};
+    //resultados = {"texto": textocompleto};
     callback(resultados);
   });
 };
