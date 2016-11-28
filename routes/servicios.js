@@ -33,7 +33,7 @@ router.get('/resultados', function(req, res, next){
         stringAnalisis.analisis.push({resultado : RespuestaJson});
       });
     });
-    console.log(stringAnalisis);
+    //console.log(stringAnalisis);
     res.json(stringAnalisis.analisis);
     /*console.log(StringJson.texto);
     analizartexto(StringJson.texto, function(RespuestaJson){
