@@ -102,6 +102,7 @@ function crearJson(registros, callback){
   var stringAnalisis = {analisis : []};
   var RespuestaJson = {};
   var itemsProcesados = 0;
+  var longitudArreglo = registros.textos.length;
   console.log("Textos", registros.textos);
   registros.textos.forEach(function(texto){
     analizartexto(texto.respuesta, function(RespuestaJson){
@@ -109,7 +110,7 @@ function crearJson(registros, callback){
       stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
     });
     itemsProcesados++;
-    if(itemsProcesados === registros.textos.length){
+    if(itemsProcesados === longitudArreglo){
       console.log("Analisis del texto", stringAnalisis.analisis);
       callback(stringAnalisis);
     };
