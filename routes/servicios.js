@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var cfenv = require('cfenv');
 var Cloudant = require('cloudant');
+var Promise = require('promise');
 var appEnv = cfenv.getAppEnv();
 var alchmyService = appEnv.getService("AlchemyAPI-7v");
 
@@ -24,17 +25,7 @@ router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var strAnalisis = {analisis : []};
 
-
-  getRecords(function(StringJson){
-
-    crearJson(StringJson, function(strAnalisis){
-      console.log("Resultados de datos", StringJson.textos);
-      res.json(strAnalisis.analisis);
-    });
-    //console.log("Analisis del texto", stringAnalisis.analisis);
-    //res.json(strAnalisis.analisis);
-  });
-
+  getRecords(StringJson).then(crearJson(StringJson)).then(res.json(strAnalisis.analisis));
 });
 
   /*
@@ -63,62 +54,64 @@ router.get('/resultados', function(req, res, next){
   res.json(stringAnalisis);*/
 
 
-function analizartexto(texto, callback){
-  var resultados = {};
-  var alchemy_language = watson.alchemy_language({
-    //api_key : alchmyApiKey
-    api_key : "05685348fec9c4ff8cc85a35303499ec178ad0ae"
-  });
-  var parameters = {
-    text : texto,
-    max_items : 150,
-    linked_data : 0,
-    emotion : 1,
-    sentiment : 1
-  };
-  alchemy_language.sentiment(parameters, function(err, response){
-    if(!err){
-      callback(response);
-      //console.log(response);
-    } else {
-      console.log(err);
+function analizartexto(texto){
+  return new Promise(function(resolve, reject){
+    var resultados = {};
+    var alchemy_language = watson.alchemy_language({
+      //api_key : alchmyApiKey
+      api_key : "05685348fec9c4ff8cc85a35303499ec178ad0ae"
+    });
+
+    var parameters = {
+      text : texto,
+      max_items : 150,
+      linked_data : 0,
+      emotion : 1,
+      sentiment : 1
     };
+
+    alchemy_language.sentiment(parameters, function(err, response){
+      if(!err){
+        resolve(response);
+        //console.log(response);
+      } else {
+        reject(err);
+      };
+    });
+  });
+
+
+function getRecords(){
+  return new Promise(function(resolve, reject){
+    var resultados = { textos: [] };
+    db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
+      if(err){
+        reject(err);
+      };
+      var textocompleto = "";
+      datos.rows.forEach(function(row){
+          //textocompleto += row.doc.respuesta;
+          resultados.textos.push({respuesta : row.doc.respuesta});
+      });
+      //resultados = {"texto": textocompleto};
+      resolve(resultados);
+    });
   });
 };
 
-function getRecords(callback){
-  var resultados = { textos: [] };
-  db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
-    var textocompleto = "";
-    datos.rows.forEach(function(row){
-        //textocompleto += row.doc.respuesta;
-        resultados.textos.push({respuesta : row.doc.respuesta});
+function crearJson(registros){
+  return new Promise(function(resolve, reject){
+    var stringAnalisis = {analisis : []};
+    var RespuestaJson = {};
+    console.log("Textos", registros.textos);
+
+    registros.textos.forEach(function(texto){
+      analizartexto(texto.respuesta, function(RespuestaJson){
+        stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
+      });
     });
-    //resultados = {"texto": textocompleto};
-    callback(resultados);
+    resolve(stringAnalisis);
   });
-};
-
-function crearJson(registros, callback){
-  var stringAnalisis = {analisis : []};
-  var RespuestaJson = {};
-  var itemsProcesados = 0;
-  var longitudArreglo = registros.textos.length;
-  console.log("Textos", registros.textos);
-  for(i=0; i < registros.textos.length; i++){
-    var texto = registros.textos[i];
-    analizartexto(texto.respuesta, function(RespuestaJson){
-      console.log("repuesta sentimiento", RespuestaJson);
-      stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
-      //if(i == registros.textos.length-1){
-        console.log("Analisis del texto", stringAnalisis.analisis);
-        callback(stringAnalisis);
-      //};
-    });
-    //console.log(i);
-    //console.log(registros.textos.length);
-
-  };
 };
 
 module.exports = router;
