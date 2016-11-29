@@ -105,6 +105,7 @@ function crearJson(registros, callback){
   for(var i=0; i < registros.textos.length; ++i){
     var texto = registros.textos[i];
     analizartexto(texto.respuesta, function(RespuestaJson){
+      console.log("repuesta sentimiento", RespuestaJson);
       stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
     });
   };
