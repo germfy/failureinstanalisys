@@ -30,7 +30,7 @@ router.get('/resultados', function(req, res, next){
     var RespuestaJson = {};
     StringJson.textos.forEach(function(registros){
       analizartexto(registros.respuesta, function(RespuestaJson){
-        stringAnalisis.analisis.push(RespuestaJson.docSentiment);
+        stringAnalisis.analisis.push(RespuestaJson);
         console.log("Dentro de analizar texto" + RespuestaJson);
       });
     });
@@ -81,7 +81,7 @@ function analizartexto(texto, callback){
   };
   alchemy_language.sentiment(parameters, function(err, response){
     if(!err){
-      callback(response.docSentiment);
+      callback(response);
       //console.log(response);
     } else {
       console.log(err);
