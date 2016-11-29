@@ -103,11 +103,12 @@ function crearJson(registros, callback){
   var RespuestaJson = {};
   registros.textos.forEach(function(renglones){
     analizartexto(renglones.respuesta, function(RespuestaJson){
-      stringAnalisis.analisis.push({texto: registros.respuesta, sentimiento : RespuestaJson.docSentiment});
+      stringAnalisis.analisis.push({texto: renglones.respuesta, sentimiento : RespuestaJson.docSentiment});
       //console.log("Dentro de analizar texto" + JSON.stringify(RespuestaJson));
-      console.log("Analisis del texto", stringAnalisis.analisis);
+
     });
   });
+  console.log("Analisis del texto", stringAnalisis.analisis);
   callback(stringAnalisis);
 };
 
