@@ -103,7 +103,7 @@ function crearJson(registros, callback){
   var RespuestaJson = {};
   var itemsProcesados = 0;
   console.log("Textos", registros.textos);
-  registros.textos.forEach(function(texto, registros.textos){
+  registros.textos.forEach(function(texto, index, registros.textos){
     analizartexto(texto.respuesta, function(RespuestaJson){
       console.log("repuesta sentimiento", RespuestaJson);
       stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
