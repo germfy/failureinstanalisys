@@ -29,10 +29,10 @@ router.get('/resultados', function(req, res, next){
 
     crearJson(StringJson, function(strAnalisis){
       console.log("Resultados de datos", StringJson.textos);
-      //res.json(strAnalisis.analisis);
+      res.json(strAnalisis.analisis);
     });
     //console.log("Analisis del texto", stringAnalisis.analisis);
-    res.json(strAnalisis.analisis);
+    //res.json(strAnalisis.analisis);
   });
 
 });
