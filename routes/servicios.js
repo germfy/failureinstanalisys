@@ -103,8 +103,8 @@ function crearJson(registros, callback){
   var RespuestaJson = {};
   console.log("Textos", registros.textos);
   for(var i=0; i < registros.textos.length; ++i){
-    analizartexto(registros.textos.respuesta, function(RespuestaJson){
-      stringAnalisis.analisis.push({texto: registros.textos.respuesta, sentimiento : RespuestaJson.docSentiment});
+    analizartexto(registros.textos[i].respuesta, function(RespuestaJson){
+      stringAnalisis.analisis.push({texto: registros.textos[i].respuesta, sentimiento : RespuestaJson.docSentiment});
     });
   };
   console.log("Analisis del texto", stringAnalisis.analisis);
