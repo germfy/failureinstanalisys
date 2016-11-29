@@ -30,12 +30,12 @@ router.get('/resultados', function(req, res, next){
     var RespuestaJson = {};
     StringJson.textos.forEach(function(registros){
       analizartexto(registros.respuesta, function(RespuestaJson){
-        stringAnalisis.analisis.push(RespuestaJson.docSentiment);
-        console.log("Dentro de analizar texto" + JSON.stringify(RespuestaJson));
+        stringAnalisis.analisis.push({texto: registros.respuesta, sentimiento : RespuestaJson.docSentiment);
+        //console.log("Dentro de analizar texto" + JSON.stringify(RespuestaJson));
       });
     });
-    console.log(stringAnalisis.analisis);
-    console.log(StringJson.textos);
+    console.log("Analisis del texto", stringAnalisis.analisis);
+    console.log("Resultados de datos", StringJson.textos);
     res.json(stringAnalisis.analisis);
   });
 
