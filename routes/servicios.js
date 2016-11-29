@@ -72,6 +72,7 @@ function analizartexto(texto){
 
     alchemy_language.sentiment(parameters, function(err, response){
       if(!err){
+        console.log("Analisis de sentimiento ", response);
         resolve(response);
         //console.log(response);
       } else {
@@ -94,6 +95,7 @@ function getRecords(){
           resultados.textos.push({respuesta : row.doc.respuesta});
       });
       //resultados = {"texto": textocompleto};
+      console.log("Resultados de DB ", resultados);
       resolve(resultados);
     });
   });
@@ -110,6 +112,7 @@ function crearJson(registros){
           stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment}));
       });
     });
+    console.log("Analisis de textos ", stringAnalisis);
     resolve(stringAnalisis);
 };
 
