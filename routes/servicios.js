@@ -25,9 +25,11 @@ router.get('/resultados', function(req, res, next){
   var stringAnalisis = {analisis : []};
   var RespuestaJson = {};
 
-  getRecords(function(StringJson){});
-  console.log(StringJson.textos);
-  res.json(StringJson.textos);
+  getRecords(function(StringJson){
+    console.log(StringJson.textos);
+    res.json(StringJson.textos);
+  });
+
 
   /*
   getRecords(function(StringJson, callback){
