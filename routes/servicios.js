@@ -31,7 +31,7 @@ router.get('/resultados', function(req, res, next){
     StringJson.textos.forEach(function(registros){
       analizartexto(registros.respuesta, function(RespuestaJson){
         stringAnalisis.analisis.push(RespuestaJson.docSentiment);
-        console.log("Dentro de analizar texto" + RespuestaJson.docSentiment);
+        console.log("Dentro de analizar texto" + RespuestaJson);
       });
     });
     console.log(stringAnalisis.analisis);
