@@ -101,7 +101,7 @@ function getRecords(callback){
 function crearJson(registros, callback){
   var stringAnalisis = {analisis : []};
   var RespuestaJson = {};
-  for(i=0; i < registros.textos.length; ++i){
+  for(var i=0; i < registros.textos.length; ++i){
     analizartexto(renglones.respuesta, function(RespuestaJson){
       stringAnalisis.analisis.push({texto: renglones.respuesta, sentimiento : RespuestaJson.docSentiment});
     });
