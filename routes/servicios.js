@@ -25,15 +25,15 @@ router.get('/resultados', function(req, res, next){
   var strAnalisis = {analisis : []};
 
 
-  function(getRecords(function(StringJson){
+  getRecords(function(StringJson){
 
     crearJson(StringJson, function(strAnalisis){
       console.log("Resultados de datos", StringJson.textos);
       //res.json(strAnalisis.analisis);
     });
     //console.log("Analisis del texto", stringAnalisis.analisis);
-
-  }), strAnalisis){res.json(strAnalisis.analisis);};
+    res.json(strAnalisis.analisis);
+  });
 
 });
 
