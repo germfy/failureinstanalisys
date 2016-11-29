@@ -22,11 +22,11 @@ var db = cloudant.db.use("failureinstitute");
 
 router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
-
+  var strAnalisis = {analisis : []};
 
 
   getRecords(function(StringJson){
-    var strAnalisis = {analisis : []};
+
     crearJson(StringJson, function(strAnalisis){
       console.log("Resultados de datos", StringJson.textos);
       //res.json(strAnalisis.analisis);
