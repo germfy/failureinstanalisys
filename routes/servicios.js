@@ -104,17 +104,17 @@ function crearJson(registros, callback){
   var itemsProcesados = 0;
   var longitudArreglo = registros.textos.length;
   console.log("Textos", registros.textos);
-  registros.textos.forEach(function(texto){
+  for(i=0; i < registros.textos.length; i++){
+    var texto = registros.textos[i];
     analizartexto(texto.respuesta, function(RespuestaJson){
       console.log("repuesta sentimiento", RespuestaJson);
       stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
     });
-    itemsProcesados++;
-    if(itemsProcesados === longitudArreglo){
+    if(i === registros.textos.length -1){
       console.log("Analisis del texto", stringAnalisis.analisis);
       callback(stringAnalisis);
     };
-  });
+  };
 };
 
 module.exports = router;
