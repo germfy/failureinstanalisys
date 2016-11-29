@@ -101,16 +101,19 @@ function getRecords(callback){
 function crearJson(registros, callback){
   var stringAnalisis = {analisis : []};
   var RespuestaJson = {};
+  var itemsProcesados = 0;
   console.log("Textos", registros.textos);
-  for(var i=0; i < registros.textos.length; ++i){
-    var texto = registros.textos[i];
+  registros.textos.forEach(function(texto, registros.textos){
     analizartexto(texto.respuesta, function(RespuestaJson){
       console.log("repuesta sentimiento", RespuestaJson);
       stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
     });
-  };
-  console.log("Analisis del texto", stringAnalisis.analisis);
-  callback(stringAnalisis);
+    itemsProcesados++;
+    if(itemsProcesados === registros.textos.length){
+      console.log("Analisis del texto", stringAnalisis.analisis);
+      callback(stringAnalisis);
+    };
+  });
 };
 
 module.exports = router;
