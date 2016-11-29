@@ -111,8 +111,8 @@ function crearJson(registros, callback){
       stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
     });
     console.log(i);
-    console.log(registros.textos.length);
-    if(i === registros.textos.length -1){
+    //console.log(registros.textos.length);
+    if(i == registros.textos.length-1){
       console.log("Analisis del texto", stringAnalisis.analisis);
       callback(stringAnalisis);
     };
