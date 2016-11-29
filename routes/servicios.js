@@ -24,6 +24,11 @@ router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var stringAnalisis = {analisis : []};
   var RespuestaJson = {};
+
+  getRecords(StringJson);
+  res.json(StringJson);
+
+  /*
   getRecords(function(StringJson, callback){
     var stringAnalisis = {analisis : []};
     console.log("Resultados enviados");
@@ -43,10 +48,10 @@ router.get('/resultados', function(req, res, next){
     analizartexto(StringJson.texto, function(RespuestaJson){
       console.log(RespuestaJson);
       res.json(RespuestaJson);
-    });*/
+    });*
 
   });
-  res.json(stringAnalisis);
+  res.json(stringAnalisis);*/
 });
 
 function analizartexto(texto, callback){
