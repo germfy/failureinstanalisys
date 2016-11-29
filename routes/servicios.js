@@ -79,7 +79,7 @@ function analizartexto(texto){
       };
     });
   });
-
+};
 
 function getRecords(){
   return new Promise(function(resolve, reject){
@@ -106,12 +106,11 @@ function crearJson(registros){
     console.log("Textos", registros.textos);
 
     registros.textos.forEach(function(texto){
-      analizartexto(texto.respuesta, function(RespuestaJson){
-        stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
+        analizartexto(texto.respuesta).then(
+          stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment}));
       });
     });
     resolve(stringAnalisis);
-  });
 };
 
 module.exports = router;
