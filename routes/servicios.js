@@ -106,17 +106,17 @@ function crearJson(registros, callback){
   console.log("Textos", registros.textos);
   for(i=0; i < registros.textos.length; i++){
     var texto = registros.textos[i];
-    analizartexto(texto.respuesta, function(RespuestaJson, callback){
+    analizartexto(texto.respuesta, function(RespuestaJson){
       console.log("repuesta sentimiento", RespuestaJson);
       stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment});
-      callback();
+      if(i == registros.textos.length-1){
+        console.log("Analisis del texto", stringAnalisis.analisis);
+        callback(stringAnalisis);
+      };
     });
-    console.log(i);
+    //console.log(i);
     //console.log(registros.textos.length);
-    if(i == registros.textos.length-1){
-      console.log("Analisis del texto", stringAnalisis.analisis);
-      callback(stringAnalisis);
-    };
+
   };
 };
 
