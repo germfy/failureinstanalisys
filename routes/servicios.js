@@ -26,7 +26,8 @@ router.get('/resultados', function(req, res, next){
   var RespuestaJson = {};
 
   getRecords(StringJson);
-  res.json(StringJson);
+  console.log(StringJson.textos);
+  res.json(StringJson.textos);
 
   /*
   getRecords(function(StringJson, callback){
