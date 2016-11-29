@@ -26,20 +26,15 @@ router.get('/resultados', function(req, res, next){
 
 
   getRecords(function(StringJson){
-    var stringAnalisis = {analisis : []};
-    var RespuestaJson = {};
-    StringJson.textos.forEach(function(registros){
-      analizartexto(registros.respuesta, function(RespuestaJson){
-        stringAnalisis.analisis.push({texto: registros.respuesta, sentimiento : RespuestaJson.docSentiment});
-        //console.log("Dentro de analizar texto" + JSON.stringify(RespuestaJson));
-        console.log("Analisis del texto", stringAnalisis.analisis);
-      });
+    var strAnalisis = {analisis : []};
+    crearJson(StringJson, function(strAnalisis){
+      console.log("Resultados de datos", StringJson.textos);
+      res.json(strAnalisis.analisis);
     });
     //console.log("Analisis del texto", stringAnalisis.analisis);
-    console.log("Resultados de datos", StringJson.textos);
-    res.json(stringAnalisis.analisis);
-  });
 
+  });
+});
 
   /*
   getRecords(function(StringJson, callback){
@@ -65,7 +60,7 @@ router.get('/resultados', function(req, res, next){
 
   });
   res.json(stringAnalisis);*/
-});
+
 
 function analizartexto(texto, callback){
   var resultados = {};
@@ -101,6 +96,19 @@ function getRecords(callback){
     //resultados = {"texto": textocompleto};
     callback(resultados);
   });
+};
+
+function crearJson(registros, callback){
+  var stringAnalisis = {analisis : []};
+  var RespuestaJson = {};
+  registros.textos.forEach(function(renglones){
+    analizartexto(renglones.respuesta, function(RespuestaJson){
+      stringAnalisis.analisis.push({texto: registros.respuesta, sentimiento : RespuestaJson.docSentiment});
+      //console.log("Dentro de analizar texto" + JSON.stringify(RespuestaJson));
+      console.log("Analisis del texto", stringAnalisis.analisis);
+    });
+  });
+  callback(stringAnalisis);
 };
 
 module.exports = router;
