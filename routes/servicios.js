@@ -77,7 +77,7 @@ router.get('/resultados', function(req, res, next){
       console.log("Despues de obtener los datos de la DB", texto);
       try{
         var analisis = analizartexto(texto.respuesta).then(function(){
-          console.log("datos del analisis", analisis);
+          console.log("datos del analisis", analisis.docSentiment);
           strAnalisis.analisis.push({texto: texto.respuesta, sentimiento : analisis.docSentiment});
           console.log("Resultado final", strAnalisis.analisis);
         });
@@ -85,9 +85,8 @@ router.get('/resultados', function(req, res, next){
         console.log(err);
       }
     });
-  }).then(function(){
     console.log("Antes de enviar el JSON");
-    res.json(strAnalisis.analisis)
+    res.json(strAnalisis.analisis);
   });
 
 });
