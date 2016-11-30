@@ -25,7 +25,7 @@ var db = cloudant.db.use("failureinstitute");
     return new Promise(function(resolve, reject){
       var resultados = { textos: [] };
       console.log("estdo", estado);
-      db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: estado}}, function(err, datos){
+      db.list({"sort": "estado", "limit" : 2, "include_docs" : true, "selector" : {"estado": "estado"}}, function(err, datos){
         if(err){
           console.log(err);
           reject(err);
