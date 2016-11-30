@@ -75,9 +75,9 @@ router.get('/resultados', function(req, res, next){
   getRecords.then(function(datos){
     datos.textos.forEach(function(texto){
       var analisis = analizartexto(texto);
-      strAnalisis.analisis.push(analisis);
+      strAnalisis.analisis.push({texto: texto, sentimiento : analisis.docSentiment});
     });
-  };
+  });
   res.json(strAnalisis.analisis);
 });
   /*getRecords(StringJson).then(
