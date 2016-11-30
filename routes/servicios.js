@@ -21,33 +21,32 @@ var cldntUrl = cldntService.credentials.url;
 var cloudant = Cloudant(cldntUrl);
 var db = cloudant.db.use("failureinstitute");
 
+var getRecords = new Promise(function(resolve, reject){
+  var resultados = { textos: [] };
+  db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
+    if(err){
+      console.log(err);
+      reject(err);
+    };
+    var textocompleto = "";
+    datos.rows.forEach(function(row){
+        //textocompleto += row.doc.respuesta;
+        resultados.textos.push({respuesta : row.doc.respuesta});
+    });
+    //resultados = {"texto": textocompleto};
+    //console.log("Resultados de DB ", resultados);
+    resolve(resultados);
+  });
+});
+
 router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var strAnalisis = {analisis : []};
 
-  var analisis = new Promise(function(resolve, reject){
-    var resultados = { textos: [] };
-    db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
-      if(err){
-        console.log(err);
-        reject(err);
-      };
-      var textocompleto = "";
-      datos.rows.forEach(function(row){
-          //textocompleto += row.doc.respuesta;
-          resultados.textos.push({respuesta : row.doc.respuesta});
-      });
-      //resultados = {"texto": textocompleto};
-      //console.log("Resultados de DB ", resultados);
-      resolve(resultados);
-    });
+  getRecords.then(function(datos){
+    res.json(datos);
   });
-
-  analisis.then(function(data){
-    res.json(data);
-  }).catch(function(err){
-    console.log(data);
-  })
+};
   /*getRecords(StringJson).then(
     function(StringJson){
       console.log(StringJson);
@@ -112,25 +111,7 @@ function analizartexto(texto){
   });
 };
 
-function getRecords(){
-  return new Promise(function(resolve, reject){
-    var resultados = { textos: [] };
-    db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
-      if(err){
-        console.log(err);
-        reject(err);
-      };
-      var textocompleto = "";
-      datos.rows.forEach(function(row){
-          //textocompleto += row.doc.respuesta;
-          resultados.textos.push({respuesta : row.doc.respuesta});
-      });
-      //resultados = {"texto": textocompleto};
-      //console.log("Resultados de DB ", resultados);
-      resolve(resultados);
-    });
-  });
-};
+
 
 function crearJson(registros){
   return new Promise(function(resolve, reject){
