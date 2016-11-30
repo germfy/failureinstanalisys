@@ -21,23 +21,25 @@ var cldntUrl = cldntService.credentials.url;
 var cloudant = Cloudant(cldntUrl);
 var db = cloudant.db.use("failureinstitute");
 
-var getRecords = new Promise(function(resolve, reject){
-  var resultados = { textos: [] };
-  db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
-    if(err){
-      console.log(err);
-      reject(err);
-    };
-    var textocompleto = "";
-    datos.rows.forEach(function(row){
+  function getRecords(estado){
+    return new Promise(function(resolve, reject){
+      var resultados = { textos: [] };
+      db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: estado}}, function(err, datos){
+        if(err){
+          console.log(err);
+          reject(err);
+        };
+        var textocompleto = "";
+        datos.rows.forEach(function(row){
         //textocompleto += row.doc.respuesta;
-        resultados.textos.push({respuesta : row.doc.respuesta});
-    });
-    //resultados = {"texto": textocompleto};
-    //console.log("Resultados de DB ", resultados);
-    resolve(resultados);
-  });
-});
+          resultados.textos.push({respuesta : row.doc.respuesta});
+        });
+        //resultados = {"texto": textocompleto};
+        //console.log("Resultados de DB ", resultados);
+        resolve(resultados);
+      });
+    })
+  };
 
 function analizartexto(texto){
   return new Promise(function(resolve, reject){
@@ -73,7 +75,7 @@ router.get('/resultados', function(req, res, next){
   var seqAnalisis = Promise.resolve();
   var strAnalisis = {analisis : []};
 
-  getRecords.then(function(datos){
+  getRecords(res.estado).then(function(datos){
     return datos.textos.reduce(function(seqAnalisis, texto){
       return seqAnalisis.then(function(){
         return analizartexto(texto.respuesta);
