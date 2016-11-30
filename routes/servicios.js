@@ -76,7 +76,7 @@ router.get('/resultados', function(req, res, next){
   var seqAnalisis = Promise.resolve();
   var strAnalisis = {analisis : []};
 
-  getRecords(req.estado).then(function(datos){
+  getRecords(req.query.estado).then(function(datos){
     return datos.textos.reduce(function(seqAnalisis, texto){
       return seqAnalisis.then(function(){
         return analizartexto(texto.respuesta);
