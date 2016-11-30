@@ -31,6 +31,7 @@ var db = cloudant.db.use("failureinstitute");
           reject(err);
         };
         var textocompleto = "";
+        console.log(datos);
         datos.rows.forEach(function(row){
         //textocompleto += row.doc.respuesta;
           resultados.textos.push({respuesta : row.doc.respuesta});
