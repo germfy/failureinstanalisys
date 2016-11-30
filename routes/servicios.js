@@ -75,10 +75,14 @@ router.get('/resultados', function(req, res, next){
   getRecords.then(function(datos){
     datos.textos.forEach(function(texto){
       console.log("Despues de obtener los datos de la DB", texto);
-      var analisis = analizartexto(texto);
-      console.log("datos del analisis", analisis);
-      strAnalisis.analisis.push({texto: texto, sentimiento : analisis.docSentiment});
-      console.log("Resultado final", strAnalisis.analisis);
+      try{
+        var analisis = analizartexto(texto.respuesta);
+        console.log("datos del analisis", analisis);
+        strAnalisis.analisis.push({texto: texto.respuesta, sentimiento : analisis.docSentiment});
+        console.log("Resultado final", strAnalisis.analisis);
+      }catch(err){
+        console.log(err);
+      }
     });
   }).then(function(){
     console.log("Antes de enviar el JSON");
