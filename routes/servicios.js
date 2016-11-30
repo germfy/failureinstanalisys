@@ -46,7 +46,7 @@ router.get('/resultados', function(req, res, next){
   getRecords.then(function(datos){
     res.json(datos);
   });
-};
+});
   /*getRecords(StringJson).then(
     function(StringJson){
       console.log(StringJson);
