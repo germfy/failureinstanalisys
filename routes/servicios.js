@@ -111,7 +111,7 @@ router.get('/resultados', function(req, res, next){
     });*
 
   });
-  res.json(stringAnalisis);*/
+  res.json(stringAnalisis);*
 
 
 
@@ -131,6 +131,6 @@ function crearJson(registros){
     });
     console.log("Analisis de textos ", stringAnalisis);
     resolve(stringAnalisis);
-};
+};*/
 
 module.exports = router;
