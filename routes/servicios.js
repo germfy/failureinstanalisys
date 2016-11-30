@@ -25,14 +25,37 @@ router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var strAnalisis = {analisis : []};
 
-  getRecords(StringJson).then(
+  var analisis = new Promise(function(resolve, reject){
+    var resultados = { textos: [] };
+    db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
+      if(err){
+        console.log(err);
+        reject(err);
+      };
+      var textocompleto = "";
+      datos.rows.forEach(function(row){
+          //textocompleto += row.doc.respuesta;
+          resultados.textos.push({respuesta : row.doc.respuesta});
+      });
+      //resultados = {"texto": textocompleto};
+      //console.log("Resultados de DB ", resultados);
+      resolve(resultados);
+    });
+  });
+
+  analisis.then(function(data){
+    res.json(data);
+  }).catch(function(err){
+    console.log(data);
+  })
+  /*getRecords(StringJson).then(
     function(StringJson){
       console.log(StringJson);
     }//crearJson(StringJson)
   ).then(
     res.json(strAnalisis.analisis)
   );
-});
+});*/
 
   /*
   getRecords(function(StringJson, callback){
@@ -103,7 +126,7 @@ function getRecords(){
           resultados.textos.push({respuesta : row.doc.respuesta});
       });
       //resultados = {"texto": textocompleto};
-      console.log("Resultados de DB ", resultados);
+      //console.log("Resultados de DB ", resultados);
       resolve(resultados);
     });
   });
