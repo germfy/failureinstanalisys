@@ -25,7 +25,13 @@ router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var strAnalisis = {analisis : []};
 
-  getRecords(StringJson).then(crearJson(StringJson)).then(res.json(strAnalisis.analisis));
+  getRecords(StringJson).then(
+    function(StringJson){
+      console.log(StringJson);
+    }//crearJson(StringJson)
+  ).then(
+    res.json(strAnalisis.analisis)
+  );
 });
 
   /*
@@ -76,6 +82,7 @@ function analizartexto(texto){
         resolve(response);
         //console.log(response);
       } else {
+        console.log(err);
         reject(err);
       };
     });
@@ -87,6 +94,7 @@ function getRecords(){
     var resultados = { textos: [] };
     db.list({sort: "estado", limit : 2, include_docs : true, selector : {estado: "Aguscalientes"}}, function(err, datos){
       if(err){
+        console.log(err);
         reject(err);
       };
       var textocompleto = "";
