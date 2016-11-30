@@ -80,9 +80,10 @@ router.get('/resultados', function(req, res, next){
       strAnalisis.analisis.push({texto: texto, sentimiento : analisis.docSentiment});
       console.log("Resultado final", strAnalisis.analisis);
     });
-  }).then({
+  }).then(function({
     console.log("Antes de enviar el JSON");
-    res.json(strAnalisis.analisis)});
+    res.json(strAnalisis.analisis)
+  }));
 
 });
   /*getRecords(StringJson).then(
