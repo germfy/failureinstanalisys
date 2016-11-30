@@ -77,6 +77,7 @@ router.get('/resultados', function(req, res, next){
   }.then(function(resultados){
     res.json(resultados);
   });
+  );
 });
   /*getRecords(StringJson).then(
     function(StringJson){
