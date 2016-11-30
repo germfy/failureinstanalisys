@@ -70,28 +70,22 @@ function analizartexto(texto){
 
 router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
-
+  var seqAnalisis = Promise.resolve();
+  var strAnalisis = {analisis : []};
 
   getRecords.then(function(datos){
-    var strAnalisis = {analisis : []};
-    datos.textos.forEach(function(texto, strAnalisis){
-      console.log("Despues de obtener los datos de la DB", texto);
-      try{
-        var analisis = analizartexto(texto.respuesta).then(function(analisis, strAnalisis){
-          console.log("datos del analisis", analisis.docSentiment);
-          strAnalisis.analisis.push({texto: texto.respuesta, sentimiento : analisis.docSentiment});
-          //console.log("Resultado final", strAnalisis.analisis);
-        }).then(function(strAnalisis){
-          console.log("Antes de enviar el JSON", strAnalisis);
-          res.json(strAnalisis.analisis);
-        });
-      }catch(err){
-        console.log(err);
-      }
-    });
-
-  });
-
+    return datos.textos.reduce(function(seqAnalisis, texto){
+      return seqAnalisis.then(function(){
+        return analizartexto(texto.respuesta);
+      }).then(function(analisis){
+        strAnalisis.analisis.push({texto: texto.respuesta, sentimiento : analisis.docSentiment});
+      });
+    }, Promise.resolve());
+  }).then(function(){
+    res.json(strAnalisis);
+  }).catch(function(err){
+    console.log(err);
+  })
 });
   /*getRecords(StringJson).then(
     function(StringJson){
