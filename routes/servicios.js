@@ -76,7 +76,7 @@ router.get('/resultados', function(req, res, next){
     datos.textos.forEach(function(texto){
       console.log("Despues de obtener los datos de la DB", texto);
       try{
-        var analisis = analizartexto(texto.respuesta).then(function(){
+        var analisis = analizartexto(texto.respuesta).then(function(analisis){
           console.log("datos del analisis", analisis.docSentiment);
           strAnalisis.analisis.push({texto: texto.respuesta, sentimiento : analisis.docSentiment});
           console.log("Resultado final", strAnalisis.analisis);
