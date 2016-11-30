@@ -74,11 +74,14 @@ router.get('/resultados', function(req, res, next){
 
   getRecords.then(function(datos){
     datos.textos.forEach(function(texto){
+      console.log(texto);
       var analisis = analizartexto(texto);
+      console.log(analisis);
       strAnalisis.analisis.push({texto: texto, sentimiento : analisis.docSentiment});
+      console.log(strAnalisis.analisis);
     });
-  });
-  res.json(strAnalisis.analisis);
+  }).then(res.json(strAnalisis.analisis));
+
 });
   /*getRecords(StringJson).then(
     function(StringJson){
