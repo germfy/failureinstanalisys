@@ -39,12 +39,43 @@ var getRecords = new Promise(function(resolve, reject){
   });
 });
 
+function analizartexto(texto){
+  return new Promise(function(resolve, reject){
+    var resultados = {};
+    var alchemy_language = watson.alchemy_language({
+      //api_key : alchmyApiKey
+      api_key : "05685348fec9c4ff8cc85a35303499ec178ad0ae"
+    });
+
+    var parameters = {
+      text : texto,
+      max_items : 150,
+      linked_data : 0,
+      emotion : 1,
+      sentiment : 1
+    };
+
+    alchemy_language.sentiment(parameters, function(err, response){
+      if(!err){
+        console.log("Analisis de sentimiento ", response);
+        resolve(response);
+        //console.log(response);
+      } else {
+        console.log(err);
+        reject(err);
+      };
+    });
+  });
+};
+
 router.get('/resultados', function(req, res, next){
   var StringJson = {textos : []};
   var strAnalisis = {analisis : []};
 
   getRecords.then(function(datos){
-    res.json(datos);
+    return strAnalisis.analisis.push(datos.textos.forEach(analizartexto(texto)));
+  }.then(function(resultados){
+    res.json(resultados);
   });
 });
   /*getRecords(StringJson).then(
@@ -82,34 +113,7 @@ router.get('/resultados', function(req, res, next){
   res.json(stringAnalisis);*/
 
 
-function analizartexto(texto){
-  return new Promise(function(resolve, reject){
-    var resultados = {};
-    var alchemy_language = watson.alchemy_language({
-      //api_key : alchmyApiKey
-      api_key : "05685348fec9c4ff8cc85a35303499ec178ad0ae"
-    });
 
-    var parameters = {
-      text : texto,
-      max_items : 150,
-      linked_data : 0,
-      emotion : 1,
-      sentiment : 1
-    };
-
-    alchemy_language.sentiment(parameters, function(err, response){
-      if(!err){
-        console.log("Analisis de sentimiento ", response);
-        resolve(response);
-        //console.log(response);
-      } else {
-        console.log(err);
-        reject(err);
-      };
-    });
-  });
-};
 
 
 
