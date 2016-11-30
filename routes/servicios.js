@@ -80,14 +80,16 @@ router.get('/resultados', function(req, res, next){
         var analisis = analizartexto(texto.respuesta).then(function(analisis, strAnalisis){
           console.log("datos del analisis", analisis.docSentiment);
           strAnalisis.analisis.push({texto: texto.respuesta, sentimiento : analisis.docSentiment});
-          console.log("Resultado final", strAnalisis.analisis);
+          //console.log("Resultado final", strAnalisis.analisis);
+        }).then(function(strAnalisis){
+          console.log("Antes de enviar el JSON", strAnalisis);
+          res.json(strAnalisis.analisis);
         });
       }catch(err){
         console.log(err);
       }
     });
-    console.log("Antes de enviar el JSON", strAnalisis);
-    res.json(strAnalisis.analisis);
+
   });
 
 });
