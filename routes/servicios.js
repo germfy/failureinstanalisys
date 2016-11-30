@@ -32,9 +32,9 @@ var db = cloudant.db.use("failureinstitute");
         };
         var textocompleto = "";
         console.log(datos);
-        datos.rows.forEach(function(row){
+        datos.docs.forEach(function(row){
         //textocompleto += row.doc.respuesta;
-          resultados.textos.push({respuesta : row.doc.respuesta});
+          resultados.textos.push({respuesta : row.respuesta});
         });
         //resultados = {"texto": textocompleto};
         //console.log("Resultados de DB ", resultados);
