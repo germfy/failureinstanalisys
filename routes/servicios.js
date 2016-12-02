@@ -83,7 +83,7 @@ router.get('/resultados', function(req, res, next){
       });
     }, Promise.resolve());
   }).then(function(){
-    db = Cloudant.db.use("resultadosfailinstitute");
+    db = cloudant.db.use("resultadosfailinstitute");
     db.insert({estado:req.query.estado, tipo: "SentimentAnalisys", resultados : strAnalisis}, req.query.estado, function(err, body){
         if (err){
           console.log(err);
