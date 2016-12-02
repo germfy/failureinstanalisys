@@ -83,7 +83,7 @@ router.get('/resultados', function(req, res, next){
       });
     }, Promise.resolve());
   }).then(function(){
-    db.insert({estado:req.query.estado, tipo: "SentimentAnalisys", resultados : strAnalisis}, req.query.estado, function(err, body){
+    db.insert({estado:req.query.estado, tipo: "SentimentAnalisys", resultados : strAnalisis}, "SentimentAnalisys"+req.query.estado, function(err, body){
         if (err){
           console.log(err);
         }else{
