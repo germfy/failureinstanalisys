@@ -33,11 +33,8 @@ var db = cloudant.db.use("failureinstitute");
         var textocompleto = "";
         console.log(datos);
         datos.docs.forEach(function(row){
-        //textocompleto += row.doc.respuesta;
           resultados.textos.push({respuesta : row.respuesta});
         });
-        //resultados = {"texto": textocompleto};
-        //console.log("Resultados de DB ", resultados);
         resolve(resultados);
       });
     })
@@ -86,63 +83,17 @@ router.get('/resultados', function(req, res, next){
       });
     }, Promise.resolve());
   }).then(function(){
+    db = Cloudant.db.use("resultadosfailinstitute");
+    db.insert({estado:req.query.estado, tipo: "SentimentAnalisys", resultados : strAnalisis}, req.query.estado, function(err, body){
+        if (err){
+          console.log(err);
+        }else{
+          console.log(body);
+        }
+    });
     res.json(strAnalisis);
   }).catch(function(err){
     console.log(err);
   })
 });
-  /*getRecords(StringJson).then(
-    function(StringJson){
-      console.log(StringJson);
-    }//crearJson(StringJson)
-  ).then(
-    res.json(strAnalisis.analisis)
-  );
-});*/
-
-  /*
-  getRecords(function(StringJson, callback){
-    var stringAnalisis = {analisis : []};
-    console.log("Resultados enviados");
-    //res.json(StringJson);
-    StringJson.textos.forEach(function(rows){
-      analizartexto(rows.respuesta, function(RespuestaJson){
-        //console.log(RespuestaJson);
-        //stringAnalisis += RespuestaJson;
-        stringAnalisis.analisis.push(RespuestaJson.docSentiment);
-        console.log("Dentro de for each " + stringAnalisis.analisis);
-      });
-    });
-    callback(stringAnalisis);
-    console.log("Dentro de getRecord" + stringAnalisis);
-
-    /*console.log(StringJson.texto);
-    analizartexto(StringJson.texto, function(RespuestaJson){
-      console.log(RespuestaJson);
-      res.json(RespuestaJson);
-    });*
-
-  });
-  res.json(stringAnalisis);*
-
-
-
-
-
-
-function crearJson(registros){
-  return new Promise(function(resolve, reject){
-    var stringAnalisis = {analisis : []};
-    var RespuestaJson = {};
-    console.log("Textos", registros.textos);
-
-    registros.textos.forEach(function(texto){
-        analizartexto(texto.respuesta).then(
-          stringAnalisis.analisis.push({texto: texto.respuesta, sentimiento : RespuestaJson.docSentiment}));
-      });
-    });
-    console.log("Analisis de textos ", stringAnalisis);
-    resolve(stringAnalisis);
-};*/
-
 module.exports = router;
