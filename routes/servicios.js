@@ -69,7 +69,7 @@ function analizartexto(texto){
   });
 };
 
-router.get('/resultados', function(req, res, next){
+router.get('/analisissentimiento', function(req, res, next){
   var StringJson = {textos : []};
   var seqAnalisis = Promise.resolve();
   var strAnalisis = {analisis : []};
