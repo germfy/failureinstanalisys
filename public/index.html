@@ -1,22 +1,36 @@
-<html>
+<!doctype html>
+<html ng-app="reporteSentimiento">
 	<head>
-	<title>Instituto del fracaso</title>
-	<link rel="stylesheet" href="stylesheets/style.css">
-</head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	   <title>Instituto del fracaso</title>
+	   <link rel="stylesheet" href="stylesheets/style.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+        <style>
+            html                    { overflow-y:scroll; }
+            body                    { padding-top:50px; }
+            #todo-list              { margin-bottom:30px; }
+        </style>
 
-<body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- SPELLS -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+        <script src="core.js"></script>
+    </head>
 
-	<h1>Resultados de entrevistas</h1>
-	<table width="560">
-	<tr><td valign="middle">
-	    <p>Lugar: <span id="lugar">buscando...</span></p>
-	    <span id="currentConds"></span>
-	</td>
-	<td valign="middle">
-    	<img id="icon" width="50" height="50" style="{visibility:hidden}">
-	</td></tr>
-    </table>
-    <article></article>
-</body>
+		<body ng-controller="mainController">
+			<div class="container">
+				<div class="text-center">
+					<h1>Resultados de entrevistas</h1>
+				</div>
+			</div>
+            <div class="row" ng-repeat="resultado in resultados">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <label>{resultado.respuesta}</label>
+                </div>
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <label>{resultado.sentimiento}</label>
+                </div>
+            </div>
+		</body>
 </html>

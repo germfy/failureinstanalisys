@@ -31,7 +31,7 @@ var db = cloudant.db.use("failureinstitute");
           reject(err);
         };
         var textocompleto = "";
-        console.log(datos);
+        //console.log(datos);
         datos.docs.forEach(function(row){
           resultados.textos.push({respuesta : row.respuesta});
         });
@@ -39,6 +39,18 @@ var db = cloudant.db.use("failureinstitute");
       });
     })
   };
+
+function getResultados(reporte, estado){
+  return new Promise(function(resolve, reject){
+    db.find({"selector": {"tipo":reporte, "estado": estado}}, function(err, datos){
+      if(err){
+        console.log(err);
+        reject(err);
+      };
+      resolve(datos);
+    })
+  })
+}
 
 function analizartexto(texto){
   return new Promise(function(resolve, reject){
@@ -95,4 +107,14 @@ router.get('/analisissentimiento', function(req, res, next){
     console.log(err);
   })
 });
+
+router.get("/generareporte", function(req, res, next){
+  getResultados(req.query.reporte, req.query.estado).then(function(datos){
+    res.send(datos);
+  })
+});
+
+router.get("/", function(req, res, next){
+  res.sendfile("./public/index.html");
+})
 module.exports = router;

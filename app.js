@@ -26,6 +26,9 @@ var app = express();
 // api_key: '<api-key>'
 //});
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({'extended':'true'}));
+app.use(bodyParser.json());
+app.use(express.bodyParser());
 /*
 app.post('/api/:method', function(req, res, next) {
   var method = req.params.method;

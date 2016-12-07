@@ -10,7 +10,7 @@
     "cookie-parser": "^1.4.1",
     "csurf": "^1.8.3",
     "dotenv": "^2.0.0",
-    "ejs": "^2.3.4",
+    "jade": "*",
     "express": "^4.12.2",
     "morgan": "^1.7.0",
     "request": "^2.72.0",
