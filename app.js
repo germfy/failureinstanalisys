@@ -16,6 +16,7 @@
 var routes = require('./routes/servicios.js')
 var express = require('express');
 var cfenv = require('cfenv');
+var bodyParser = require('body-parser');
 
 var appEnv = cfenv.getAppEnv();
 var app = express();
