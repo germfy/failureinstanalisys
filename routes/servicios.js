@@ -110,7 +110,8 @@ router.get('/analisissentimiento', function(req, res, next){
 
 router.get("/generareporte", function(req, res, next){
   getResultados(req.query.reporte, req.query.estado).then(function(datos){
-    res.send(datos);
+    var analisis = datos["SentimentAnalisys" + req.qeury.estado]
+    res.send(analisis);
   })
 });
 
