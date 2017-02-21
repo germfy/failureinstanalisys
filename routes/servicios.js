@@ -18,6 +18,10 @@ var clndtHost = cldntService.credentials.host;
 var clndtPost = cldntService.credentials.port;
 var cldntUrl = cldntService.credentials.url;
 
+/*var alchmyUrl = "https://gateway-a.watsonplatform.net/calls";
+var alchmyApiKey = "e6652b54b658b14864ecfab1c878534856ed7643";
+//api_key : "05685348fec9c4ff8cc85a35303499ec178ad0ae"
+var cldntUrl = "https://55f7cc8f-511a-4e0e-b56b-057824934e18-bluemix:5ae0305696a08bcd98f8cc1cdd6dc5df026416213446240ba502b3e203301fb3@55f7cc8f-511a-4e0e-b56b-057824934e18-bluemix.cloudant.com";*/
 var cloudant = Cloudant(cldntUrl);
 var db = cloudant.db.use("failureinstitute");
 
@@ -56,8 +60,8 @@ function analizartexto(texto){
   return new Promise(function(resolve, reject){
     var resultados = {};
     var alchemy_language = watson.alchemy_language({
-      //api_key : alchmyApiKey
-      api_key : "05685348fec9c4ff8cc85a35303499ec178ad0ae"
+      api_key : alchmyApiKey
+
     });
 
     var parameters = {
@@ -110,12 +114,29 @@ router.get('/analisissentimiento', function(req, res, next){
 
 router.get("/generareporte", function(req, res, next){
   getResultados(req.query.reporte, req.query.estado).then(function(datos){
-    var analisis = datos.id["SentimentAnalisys" + req.query.estado]
-    res.send(analisis);
+    var analisis;
+    var resultados = { datos : []};
+    datos.docs.forEach(function(row){
+      if (row._id == "SentimentAnalisys" + req.query.estado){
+        analisis = row;
+      }
+    });
+
+    analisis.resultados.analisis.forEach(function(row){
+        //console.log(row.sentimiento);
+        resultados.datos.push(row.sentimiento);
+    });
+    //console.log(typeof(resultados));
+    res.send(resultados);
   })
+});
+
+router.get("/reporte", function(req, res, next){
+  res.sendfile("./public/reporte.html");
 });
 
 router.get("/", function(req, res, next){
   res.sendfile("./public/index.html");
-})
+});
+
 module.exports = router;
