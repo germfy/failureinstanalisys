@@ -5,7 +5,7 @@ var cfenv = require('cfenv');
 var Cloudant = require('cloudant');
 var Promise = require('promise');
 var appEnv = cfenv.getAppEnv();
-var alchmyService = appEnv.getService("AlchemyAPI-7v");
+/*var alchmyService = appEnv.getService("AlchemyAPI-7v");
 
 var alchmyUrl = alchmyService.credentials.url;
 var alchmyApiKey = alchmyService.credentials.apikey;
@@ -17,11 +17,11 @@ var cldntPassword = cldntService.credentials.password;
 var clndtHost = cldntService.credentials.host;
 var clndtPost = cldntService.credentials.port;
 var cldntUrl = cldntService.credentials.url;
-
-/*var alchmyUrl = "https://gateway-a.watsonplatform.net/calls";
+*/
+var alchmyUrl = "https://gateway-a.watsonplatform.net/calls";
 var alchmyApiKey = "e6652b54b658b14864ecfab1c878534856ed7643";
 //api_key : "05685348fec9c4ff8cc85a35303499ec178ad0ae"
-var cldntUrl = "https://55f7cc8f-511a-4e0e-b56b-057824934e18-bluemix:5ae0305696a08bcd98f8cc1cdd6dc5df026416213446240ba502b3e203301fb3@55f7cc8f-511a-4e0e-b56b-057824934e18-bluemix.cloudant.com";*/
+var cldntUrl = "https://55f7cc8f-511a-4e0e-b56b-057824934e18-bluemix:5ae0305696a08bcd98f8cc1cdd6dc5df026416213446240ba502b3e203301fb3@55f7cc8f-511a-4e0e-b56b-057824934e18-bluemix.cloudant.com";
 var cloudant = Cloudant(cldntUrl);
 var db = cloudant.db.use("failureinstitute");
 
