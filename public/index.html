@@ -1,36 +1,166 @@
 <!doctype html>
-<html ng-app="reporteSentimiento">
+<html>
 	<head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 	   <title>Instituto del fracaso</title>
-	   <link rel="stylesheet" href="stylesheets/style.css">
+	   
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
-        <style>
-            html                    { overflow-y:scroll; }
-            body                    { padding-top:50px; }
-            #todo-list              { margin-bottom:30px; }
-        </style>
+        <link rel="stylesheet" href="stylesheets/style.css">
+        
 
     <!-- SPELLS -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="core.js"></script>
     </head>
 
-		<body ng-controller="mainController">
-			<div class="container">
-				<div class="text-center">
-					<h1>Resultados de entrevistas</h1>
-				</div>
-			</div>
-            <div class="row" ng-repeat="resultado in resultados">
-                <div class="col-sm-8 col-sm-offset-2 text-center">
-                    <label>{resultado.respuesta}</label>
+		<body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 fondo-imagen">
+                        <img src="images/failure-institute-300x217-claro.png">
+                    </div>
+                    <div class="col-md-8 page-header">
+                        <h1>Resultados de análisis de encuestas</h1>
+                    </div>
                 </div>
-                <div class="col-sm-8 col-sm-offset-2 text-center">
-                    <label>{resultado.sentimiento}</label>
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">Menu principal</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="./reporte.html">Resultados Analisis de Sentimiento</a>
+                                <a href="#">Resultados de Analisis de Entidades</a>
+                                <a href="#">Resultados de Análisis de Conceptos</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="./forma.html">Forma</a>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                         <iframe  src="https://www.youtube.com/embed/uN_2XMyNDD4" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="col-md-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" width="400px" height="400px" id="ojSvg">
+                            <g id="Cube"> 
+	                           <g id="caras_bordes.Cube" stroke-width="1.0px" stroke-linejoin="miter" stroke-linecap="round" stroke="rgb(51,26,0)">
+	                               <polygon fill="rgb(45,20,0)" points="288.0611,131.3717 179.4857,124.30176 87.0314,143.82837 241.66351,166.68231 " />
+	                               <polygon fill="rgb(47,21,0)" points="270.74426,239.27365 288.0611,131.3717 241.66351,166.68231 229.75984,324.47355 " />
+	                               <polygon fill="rgb(154,69,0)" points="229.75984,324.47355 241.66351,166.68231 87.0314,143.82837 116.26482,267.61168 " />
+	                           </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="col-md-4 col4" id="col4">
+                    </div>
                 </div>
             </div>
 		</body>
+        <script>
+
+var width = 960,
+    height = 500,
+    radius = 80,
+    x = Math.sin(2 * Math.PI / 3),
+    y = Math.cos(2 * Math.PI / 3);
+
+var offset = 0,
+    speed = 4,
+    start = Date.now();
+
+var svg = d3.select("div#col4").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(.55)")
+  .append("g");
+
+var frame = svg.append("g")
+    .datum({radius: Infinity});
+
+frame.append("g")
+    .attr("class", "annulus")
+    .datum({teeth: 80, radius: -radius * 5, annulus: true})
+  .append("path")
+    .attr("d", gear);
+
+frame.append("g")
+    .attr("class", "sun")
+    .datum({teeth: 16, radius: radius})
+  .append("path")
+    .attr("d", gear);
+
+frame.append("g")
+    .attr("class", "planet")
+    .attr("transform", "translate(0,-" + radius * 3 + ")")
+    .datum({teeth: 32, radius: -radius * 2})
+  .append("path")
+    .attr("d", gear);
+
+frame.append("g")
+    .attr("class", "planet")
+    .attr("transform", "translate(" + -radius * 3 * x + "," + -radius * 3 * y + ")")
+    .datum({teeth: 32, radius: -radius * 2})
+  .append("path")
+    .attr("d", gear);
+
+frame.append("g")
+    .attr("class", "planet")
+    .attr("transform", "translate(" + radius * 3 * x + "," + -radius * 3 * y + ")")
+    .datum({teeth: 32, radius: -radius * 2})
+  .append("path")
+    .attr("d", gear);
+
+d3.selectAll("input[name=reference]")
+  .data([radius * 5, Infinity, -radius])
+    .on("change", function(radius1) {
+      var radius0 = frame.datum().radius, angle = (Date.now() - start) * speed;
+      frame.datum({radius: radius1});
+      svg.attr("transform", "rotate(" + (offset += angle / radius0 - angle / radius1) + ")");
+    });
+
+d3.selectAll("input[name=speed]")
+    .on("change", function() { speed = +this.value; });
+
+function gear(d) {
+  var n = d.teeth,
+      r2 = Math.abs(d.radius),
+      r0 = r2 - 8,
+      r1 = r2 + 8,
+      r3 = d.annulus ? (r3 = r0, r0 = r1, r1 = r3, r2 + 20) : 20,
+      da = Math.PI / n,
+      a0 = -Math.PI / 2 + (d.annulus ? Math.PI / n : 0),
+      i = -1,
+      path = ["M", r0 * Math.cos(a0), ",", r0 * Math.sin(a0)];
+  while (++i < n) path.push(
+      "A", r0, ",", r0, " 0 0,1 ", r0 * Math.cos(a0 += da), ",", r0 * Math.sin(a0),
+      "L", r2 * Math.cos(a0), ",", r2 * Math.sin(a0),
+      "L", r1 * Math.cos(a0 += da / 3), ",", r1 * Math.sin(a0),
+      "A", r1, ",", r1, " 0 0,1 ", r1 * Math.cos(a0 += da / 3), ",", r1 * Math.sin(a0),
+      "L", r2 * Math.cos(a0 += da / 3), ",", r2 * Math.sin(a0),
+      "L", r0 * Math.cos(a0), ",", r0 * Math.sin(a0));
+  path.push("M0,", -r3, "A", r3, ",", r3, " 0 0,0 0,", r3, "A", r3, ",", r3, " 0 0,0 0,", -r3, "Z");
+  return path.join("");
+}
+
+d3.timer(function() {
+  var angle = (Date.now() - start) * speed,
+      transform = function(d) { return "rotate(" + angle / d.radius + ")"; };
+  frame.selectAll("path").attr("transform", transform);
+  frame.attr("transform", transform); // frame of reference
+});
+
+</script>
+
 </html>

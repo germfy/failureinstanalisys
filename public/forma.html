@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	   <title>Instituto del fracaso</title>
+	   
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+        <link rel="stylesheet" href="stylesheets/style.css">
+        
+
+    <!-- SPELLS -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="core.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 fondo-imagen">
+                    <img src="images/failure-institute-300x217-claro.png">
+                </div>
+                <div class="col-md-8 page-header">
+                    <h1>Resultados de análisis de encuestas</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn">Menu principal</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="./reporte.html">Resultados Analisis de Sentimiento</a>
+                            <a href="#">Resultados de Analisis de Entidades</a>
+                            <a href="#">Resultados de Análisis de Conceptos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a href="./index.html">Página principal</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            
+            <form class="form" novalidate>
+                <div class="form-group">
+                    <label>Nombre Completo:</label>
+                    <input type="text" id="full_name" name="full_name" placeholder="Nombre Completo" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Dirección de correo electrónico:</label>
+                    <input type="email" id="email_addr" name="email_addr" placeholder="Correo Electronico" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Repetir correo electrónico:</label>
+                    <input type="email" id="email_addr_repeat" name="email_addr_repeat" required oninput="check(this)" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+        
+    </body>
+</html>
